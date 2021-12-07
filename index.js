@@ -86,9 +86,9 @@ function make_result(number_2){
        
         result = operate(add,secondNumber,firstNumber);
         
-        numberDisplay.innerHTML = "";
+        numberDisplay.innerHTML = result;
         
-        numberSecondDisplay.innerHTML = result;
+        numberSecondDisplay.innerHTML = `${secondNumber}+${firstNumber}=`;
         return
     }else if(number_2[number_2.length - 1] == "-"){
         firstNumber = parseInt(numberDisplay.innerHTML);
@@ -97,9 +97,9 @@ function make_result(number_2){
         
         result = operate(subtract,secondNumber,firstNumber);
         
-        numberDisplay.innerHTML = "";
+        numberDisplay.innerHTML = result;
         
-        numberSecondDisplay.innerHTML = result;
+        numberSecondDisplay.innerHTML = `${secondNumber}-${firstNumber}=`;
         return
     }else if(number_2[number_2.length - 1] == "÷"){
         firstNumber = parseInt(numberDisplay.innerHTML);
@@ -108,10 +108,9 @@ function make_result(number_2){
         
         result = operate(divide,secondNumber,firstNumber);
         
-        numberDisplay.innerHTML = "";
+        numberDisplay.innerHTML = result;
         
-        
-        numberSecondDisplay.innerHTML = result;
+        numberSecondDisplay.innerHTML = `${secondNumber}÷${firstNumber}=`;
         return
     }else if(number_2[number_2.length - 1] == "×"){
         firstNumber = parseInt(numberDisplay.innerHTML);
@@ -120,8 +119,9 @@ function make_result(number_2){
         
         result = operate(multiply,secondNumber,firstNumber);
         
-        numberDisplay.innerHTML = "";
-        numberSecondDisplay.innerHTML = result;
+        numberDisplay.innerHTML = result;
+        
+        numberSecondDisplay.innerHTML = `${secondNumber}×${firstNumber}=`;
         return
     }
 }

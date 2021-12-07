@@ -43,6 +43,11 @@
     position: relative;
     text-align: right;
 }
+.secondDisplay:after
+{
+    content: '.';
+    visibility: hidden;
+}
 .buttons{
     display: grid;
     justify-content: center;

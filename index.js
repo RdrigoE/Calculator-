@@ -25,103 +25,215 @@ let firstNumber = 0
 let secondNumber= 0
 buttons.forEach(button => {
     button.addEventListener("click",function(){
-        if (button.className == "number"){
-            numberDisplay.innerHTML = numberDisplay.textContent + button.textContent
-        }
-        if (button.className == "operation"){
-            let number_2 =  String(numberSecondDisplay.innerHTML)
-            if(button.textContent == "AC"){
-                numberDisplay.innerHTML = "";
-                numberSecondDisplay.innerHTML = "";
-            }else if(button.textContent == "+"){
-                if(number_2 == ""){
-                    numberSecondDisplay.innerHTML = numberDisplay.innerHTML +"+";
-                    numberDisplay.innerHTML = "";
+        if (firstNumber == 0 && secondNumber == 0){
+            if (button.className == "number"){
+                if (numberDisplay.innerHTML.length < 11){
+                numberDisplay.innerHTML = numberDisplay.innerHTML + button.textContent;
+                }
+            }else if(button.className == "operation"){
+                switch(button.textContent){
+                    case "+":
+                        secondNumber = parseFloat(numberDisplay.innerHTML);
+                        numberSecondDisplay.innerHTML=secondNumber + "+";
+                        numberDisplay.innerHTML = "";
+                        break;
+                    case "-":
+                        secondNumber = parseFloat(numberDisplay.innerHTML);
+                        numberSecondDisplay.innerHTML=secondNumber + "-";
+                        numberDisplay.innerHTML = "";
+                        break;
+                    case "÷":
+                        secondNumber = parseFloat(numberDisplay.innerHTML);
+                        numberSecondDisplay.innerHTML=secondNumber + "÷";
+                        numberDisplay.innerHTML = "";
+                        break;
+                    case "×":
+                        secondNumber = parseFloat(numberDisplay.innerHTML);
+                        numberSecondDisplay.innerHTML=secondNumber + "×";
+                        numberDisplay.innerHTML = "";
+                        break;
+                    case "AC":
+                        AC();
+                        break;
+                    case "+/-":
+                        console.log("trying")
+                        plusMinus();
+                        break;
+                    case "DEL":
+                        numberDisplay.innerHTML = numberDisplay.innerHTML.slice(0,-1);
+                        break;
+                    default:
+                        console.log("Not gonna do it");
+                    
+                }
+
+            }
+        }else if (numberDisplay.innerHTML == "" && secondNumber != 0){
+            if (button.className == "number"){
+                if (numberDisplay.innerHTML.length < 11){
+                    numberDisplay.innerHTML = numberDisplay.innerHTML + button.textContent;
+                    }
+            }else if(button.className == "operation"){
+                switch(button.textContent){
+                    case "+":
+                        numberSecondDisplay.innerHTML= numberSecondDisplay.innerHTML.slice(0,-1) + "+";
+                        break;
+                    case "-":
+                        numberSecondDisplay.innerHTML= numberSecondDisplay.innerHTML.slice(0,-1) + "-";
+                        break;
+                    case "÷":
+                        numberSecondDisplay.innerHTML= numberSecondDisplay.innerHTML.slice(0,-1) + "÷";
+                        break;
+                    case "×":
+                        numberSecondDisplay.innerHTML= numberSecondDisplay.innerHTML.slice(0,-1) + "×";
+                        break;
+                    case "+/-":
+                        plusMinus();
+                        break;
+                    case "AC":
+                        AC();
+                        break; 
+                    case "=":
+                        updateOnTheGo("=");
+                        break;                   
+                    }
+                }
+        }else if (String(numberSecondDisplay.innerHTML[numberSecondDisplay.innerHTML.length - 1]) == "="){
+            if (button.className == "number"){
+                if (secondNumber == parseFloat(numberDisplay.innerHTML)||secondNumber == parseFloat("-"+numberDisplay.innerHTML)){
+                    AC()
+                    numberDisplay.innerHTML = button.textContent;
                     return
                 }
-                make_result(number_2)
-                numberSecondDisplay.innerHTML = numberSecondDisplay.innerHTML +"+"
-            }else if(button.textContent == "-"){
-                if(number_2 == ""){
-                    numberSecondDisplay.innerHTML = numberDisplay.innerHTML +"-";
-                    numberDisplay.innerHTML = "";
-                    return
+            }else if(button.className == "operation"){
+                switch(button.textContent){
+                    case "+":
+                        secondNumber = parseFloat(numberDisplay.innerHTML);
+                        numberSecondDisplay.innerHTML=secondNumber + "+";
+                        numberDisplay.innerHTML = "";
+                        break;
+                    case "-":
+                        secondNumber = parseFloat(numberDisplay.innerHTML);
+                        numberSecondDisplay.innerHTML=secondNumber + "-";
+                        numberDisplay.innerHTML = "";
+                        break;
+                    case "÷":
+                        secondNumber = parseFloat(numberDisplay.innerHTML);
+                        numberSecondDisplay.innerHTML=secondNumber + "÷";
+                        numberDisplay.innerHTML = "";
+                        break;
+                    case "×":
+                        secondNumber = parseFloat(numberDisplay.innerHTML);
+                        numberSecondDisplay.innerHTML=secondNumber + "×";
+                        numberDisplay.innerHTML = "";
+                        break;
+                    case "+/-":
+                        plusMinus();
+                        break;
+                    case "AC":
+                        AC();
+                        break;
+                    case "DEL":
+                        AC();
+                        break;
+                    default:
+                        console.log("Not gonna do it");
+                    
                 }
-                make_result(number_2)
-                numberSecondDisplay.innerHTML = numberSecondDisplay.innerHTML +"-"
-            }else if(button.textContent == "÷"){
-                if(number_2 == ""){
-                    numberSecondDisplay.innerHTML = numberDisplay.innerHTML +"÷";
-                    numberDisplay.innerHTML = "";
-                    return
+            }
+        }else if (numberDisplay.innerHTML != "" && secondNumber != 0){
+            if (button.className == "number"){
+                if (numberDisplay.innerHTML.length < 11){
+                    numberDisplay.innerHTML = numberDisplay.innerHTML + button.textContent;
+                    }
+            }else if(button.className == "operation"){
+                switch(button.textContent){
+                    case "+":
+                        updateOnTheGo("+")
+                        break;
+                    case "-":
+                        updateOnTheGo("-");
+                        break;
+                    case "÷":
+                        updateOnTheGo("÷");
+                        break;
+                    case "×":
+                        updateOnTheGo("×");
+                        break;
+                    case "=":
+                        updateOnTheGo("=");
+                        break;
+                    case "AC":
+                        numberSecondDisplay.innerHTML = "";
+                        numberDisplay.innerHTML = "";
+                        firstNumber = 0
+                        secondNumber= 0
+                        break;
+                    case "+/-":
+                        plusMinus();
+                        break;
+                    case "DEL":
+                        numberDisplay.innerHTML = numberDisplay.innerHTML.slice(0,-1);
+                        break;
+                    default:
+                        console.log("Not gonna do it");
+                    
                 }
-                make_result(number_2)
-                numberSecondDisplay.innerHTML = numberSecondDisplay.innerHTML +"÷"
-            }else if(button.textContent == "×"){
-                if(number_2 == ""){
-                    numberSecondDisplay.innerHTML = numberDisplay.innerHTML +"×";
-                    numberDisplay.innerHTML = "";
-                    return
-                }
-                make_result(number_2)
-                numberSecondDisplay.innerHTML = numberSecondDisplay.innerHTML +"×"
-            }else if(button.textContent == "="){
-                let number_2 =  String(numberSecondDisplay.innerHTML)
-                if (number_2 == ""){
-                    return
-                }
-                make_result(number_2)
             }
         }
-    }
-)});
+    })
+});
 
-function make_result(number_2){
-        if (number_2 == ""){
-            return
-        }else if(number_2[number_2.length - 1] == "+"){
-        firstNumber = parseInt(numberDisplay.innerHTML);
-        
-        secondNumber = parseInt(numberSecondDisplay.innerHTML.slice(0,-1));
-       
-        result = operate(add,secondNumber,firstNumber);
-        
-        numberDisplay.innerHTML = result;
-        
-        numberSecondDisplay.innerHTML = `${secondNumber}+${firstNumber}=`;
+function computeResult(innerStringTwo, innerString){
+    n1 = parseFloat(innerStringTwo.slice(0,-1));
+    n2 = parseFloat(innerString);
+    switch(innerStringTwo[innerStringTwo.length - 1]){
+        case "+":
+            return add(n1,n2).toFixed(3);
+        case "-":
+            return subtract(n1,n2).toFixed(3);
+        case "÷":
+            return divide(n1,n2).toFixed(3);
+        case "×":
+            return multiply(n1,n2).toFixed(3);
+    }
+}
+
+function updateOnTheGo(signal){
+    if (signal == "="){
+        let temp = secondNumber
+        firstNumber = parseFloat(numberDisplay.innerHTML)
+        secondNumber = parseFloat(computeResult(numberSecondDisplay.innerHTML,numberDisplay.innerHTML));
+        signal = String(numberSecondDisplay.innerHTML[numberSecondDisplay.innerHTML.length - 1])
+        numberSecondDisplay.innerHTML = `${temp} ${signal} ${firstNumber} =`
+        numberDisplay.innerHTML = secondNumber;
+        firstNumber = 0;
         return
-    }else if(number_2[number_2.length - 1] == "-"){
-        firstNumber = parseInt(numberDisplay.innerHTML);
-        
-        secondNumber = parseInt(numberSecondDisplay.innerHTML.slice(0,-1));
-        
-        result = operate(subtract,secondNumber,firstNumber);
-        
-        numberDisplay.innerHTML = result;
-        
-        numberSecondDisplay.innerHTML = `${secondNumber}-${firstNumber}=`;
+    }
+    let temp = secondNumber
+    firstNumber = parseFloat(numberDisplay.innerHTML)
+    secondNumber = computeResult(numberSecondDisplay.innerHTML,numberDisplay.innerHTML);
+    numberSecondDisplay.innerHTML = `${secondNumber}${signal}`
+    numberDisplay.innerHTML = "";
+    firstNumber = 0;
+}
+
+function AC(){
+    numberSecondDisplay.innerHTML = "";
+    numberDisplay.innerHTML = "";
+    firstNumber = 0
+    secondNumber= 0
+}
+
+function plusMinus(){
+    if (numberDisplay.innerHTML.charAt(0) == "-"){
+        numberDisplay.innerHTML = numberDisplay.innerHTML.slice(1,numberDisplay.innerHTML.length)
         return
-    }else if(number_2[number_2.length - 1] == "÷"){
-        firstNumber = parseInt(numberDisplay.innerHTML);
-        
-        secondNumber = parseInt(numberSecondDisplay.innerHTML.slice(0,-1));
-        
-        result = operate(divide,secondNumber,firstNumber);
-        
-        numberDisplay.innerHTML = result;
-        
-        numberSecondDisplay.innerHTML = `${secondNumber}÷${firstNumber}=`;
+    } else if(numberDisplay.innerHTML == ""){
+        numberDisplay.innerHTML = "-"
         return
-    }else if(number_2[number_2.length - 1] == "×"){
-        firstNumber = parseInt(numberDisplay.innerHTML);
-        
-        secondNumber = parseInt(numberSecondDisplay.innerHTML.slice(0,-1));
-        
-        result = operate(multiply,secondNumber,firstNumber);
-        
-        numberDisplay.innerHTML = result;
-        
-        numberSecondDisplay.innerHTML = `${secondNumber}×${firstNumber}=`;
+    }else{    
+        numberDisplay.innerHTML = `-${parseFloat(numberDisplay.innerHTML)}`
         return
     }
 }
